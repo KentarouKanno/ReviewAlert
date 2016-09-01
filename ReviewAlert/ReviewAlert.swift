@@ -18,7 +18,7 @@ class ReviewAlert {
     let currenAppVersionKey = "CFBundleShortVersionString"
     
     // Review Show Count
-    let firstAlertCount = 2
+    let firstAlertCount = 7
     let afterAlertCount = 15
     
     /// Singleton生成
