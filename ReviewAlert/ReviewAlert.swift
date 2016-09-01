@@ -55,9 +55,9 @@ class ReviewAlert {
         func saveReviewStatus() {
             var value: [String: AnyObject]!
             switch self {
-            case .none(let count) : value = ["none" : count]
-            case .after(let count): value = ["after": count]
-            case .never           : value = ["never": ""]
+                case .none(let count) : value = ["none" : count]
+                case .after(let count): value = ["after": count]
+                case .never           : value = ["never": ""]
             }
             
             NSUserDefaults.standardUserDefaults().setObject(value, forKey: "ReviewStatusKey")
@@ -86,7 +86,6 @@ class ReviewAlert {
     var currentAppVersion: String {
         return NSBundle.mainBundle().objectForInfoDictionaryKey(currenAppVersionKey) as! String
     }
-
     
     /// ReviewStatusをリセットする
     func resetStatus()  {
@@ -116,7 +115,7 @@ class ReviewAlert {
             }
         case .after(var count):
             count += 1
-            reviewStatus = .after(count: Int(count))
+            reviewStatus = .after(count: count)
             if count >= afterAlertCount {
                 showReviewAlert(vc)
             }
