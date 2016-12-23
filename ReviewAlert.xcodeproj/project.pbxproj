@@ -103,6 +103,7 @@
 					36D3EE6E1D779FFB0068309A = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = HY9CXX38QG;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -263,6 +264,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.kentarou.ReviewAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -275,6 +277,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.kentarou.ReviewAlert;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -297,6 +300,7 @@
 				36D3EE831D779FFB0068309A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

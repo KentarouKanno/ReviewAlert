@@ -1,0 +1,19 @@
+[
+ {
+  "file": "/Users/KentarOu/Desktop/デスクトップ/DeskTop/My_Github/ReviewAlert/ReviewAlert/AppDelegate.swift",
+  "offset": 282,
+  "text": "_ ",
+ },
+ {
+  "file": "/Users/KentarOu/Desktop/デスクトップ/DeskTop/My_Github/ReviewAlert/ReviewAlert/AppDelegate.swift",
+  "offset": 356,
+  "remove": 8,
+  "text": "UIApplicationLaunchOptionsKey",
+ },
+ {
+  "file": "/Users/KentarOu/Desktop/デスクトップ/DeskTop/My_Github/ReviewAlert/ReviewAlert/AppDelegate.swift",
+  "offset": 368,
+  "remove": 7,
+  "text": "y",
+ }
+]

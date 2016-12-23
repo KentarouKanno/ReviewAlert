@@ -19,13 +19,13 @@ class ReviewAlert {
     
     // Review Show Count
     let firstAlertCount = 7
-    let afterAlertCount = 15
+    let afterAlertCount = 10
     
     /// Singleton生成
     static let sharedInstance: ReviewAlert = {
         let instance = ReviewAlert()
         // 初期値設定
-        if let version = instance.userDefault.stringForKey(instance.appVersionKey) {
+        if let version = instance.userDefault.string(forKey: instance.appVersionKey) {
             if !instance.compareAppVersion(version) {
                 instance.resetStatus()
                 instance.setAppVersion()
@@ -38,7 +38,7 @@ class ReviewAlert {
         return instance
     }()
     
-    let userDefault = NSUserDefaults.standardUserDefaults()
+    let userDefault = UserDefaults.standard
     var reviewStatus: ReviewStatus = .none(count: 0) {
         didSet {
             reviewStatus.saveReviewStatus()
@@ -55,18 +55,18 @@ class ReviewAlert {
         func saveReviewStatus() {
             var value: [String: AnyObject]!
             switch self {
-                case .none(let count) : value = ["none" : count]
-                case .after(let count): value = ["after": count]
-                case .never           : value = ["never": ""]
+                case .none(let count) : value = ["none" : count as AnyObject]
+                case .after(let count): value = ["after": count as AnyObject]
+                case .never           : value = ["never": "" as AnyObject]
             }
             
-            NSUserDefaults.standardUserDefaults().setObject(value, forKey: "ReviewStatusKey")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(value, forKey: "ReviewStatusKey")
+            UserDefaults.standard.synchronize()
         }
         
         // Review Statusを呼び出し
         static func readReviewStatus() -> ReviewStatus {
-            if let status = NSUserDefaults.standardUserDefaults().objectForKey("ReviewStatusKey") as? [String: AnyObject] {
+            if let status = UserDefaults.standard.object(forKey: "ReviewStatusKey") as? [String: AnyObject] {
                 let key = status.keys.first!
                 let value = status[key]
                 switch key {
@@ -84,7 +84,7 @@ class ReviewAlert {
     
     /// 現在のアプリバージョンを取得
     var currentAppVersion: String {
-        return NSBundle.mainBundle().objectForInfoDictionaryKey(currenAppVersionKey) as! String
+        return Bundle.main.object(forInfoDictionaryKey: currenAppVersionKey) as! String
     }
     
     /// ReviewStatusをリセットする
@@ -94,17 +94,17 @@ class ReviewAlert {
     
     /// 現在のVersionを保存する
     func setAppVersion()  {
-        userDefault.setObject(currentAppVersion, forKey: appVersionKey)
+        userDefault.set(currentAppVersion, forKey: appVersionKey)
         userDefault.synchronize()
     }
     
     /// UserDefaultのアプリVersionを比較する
-    func compareAppVersion(version: String) -> Bool {
+    func compareAppVersion(_ version: String) -> Bool {
         return version == currentAppVersion ? true : false
     }
     
     /// レビューアラートを表示するかチェックする
-    func checkReviewAlert(vc: UIViewController) {
+    func checkReviewAlert(_ vc: UIViewController) {
         
         switch reviewStatus {
         case .none(var count) :
@@ -125,25 +125,53 @@ class ReviewAlert {
     }
     
     /// レビューアラートを表示する
-    func showReviewAlert(vc: UIViewController) {
+    func showReviewAlert(_ vc: UIViewController) {
         
-        let alert = UIAlertController(title: "ReviewAlert", message: "message", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "ReviewAlert",
+                                      message: "message",
+                                      preferredStyle: .alert)
         
-        let action1 = UIAlertAction(title: "レビューする", style: .Default, handler: { action in
-            self.reviewStatus = .never
-            // レビュー画面へ
-        })
-        let action2 = UIAlertAction(title: "後で", style: .Default, handler: { action in
-            self.reviewStatus = .after(count: 0)
-        })
-        let action3 = UIAlertAction(title: "レビューしない", style: .Default, handler: { action in
-            self.reviewStatus = .never
+        let reviewOKAction = UIAlertAction(title: "レビューする",
+                                           style: .default,
+                                           handler:
+            { action in
+                self.reviewStatus = .never
+                // レビュー画面へ
+                
+                // Open iTunes Store
+                let itunesReviewURL = "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=1094591345"
+                let itunesURL = "itms-apps://itunes.apple.com/app/id1094591345"
+                
+                let app = UIApplication.shared
+                if let url = URL(string:itunesReviewURL), app.canOpenURL(url) {
+                    // iTunes Reviewページへ
+                    app.openURL(url)
+                } else if let url = URL(string:itunesURL), app.canOpenURL(url) {
+                    // iTunes アプリページへ
+                    app.openURL(url)
+                }
         })
         
-        alert.addAction(action1)
-        alert.addAction(action2)
-        alert.addAction(action3)
-        vc.presentViewController(alert, animated: true, completion: nil)
+        // レビューあとで
+        let reviewAfterAction = UIAlertAction(title: "後で",
+                                              style: .default,
+                                              handler:
+            { action in
+                self.reviewStatus = .after(count: 0)
+        })
+        
+        // レビューNG
+        let reviewNGAction = UIAlertAction(title: "レビューしない",
+                                           style: .default,
+                                           handler:
+            { action in
+                self.reviewStatus = .never
+        })
+        
+        alert.addAction(reviewOKAction)
+        alert.addAction(reviewAfterAction)
+        alert.addAction(reviewNGAction)
+        vc.present(alert, animated: true, completion: nil)
     }
 }
 

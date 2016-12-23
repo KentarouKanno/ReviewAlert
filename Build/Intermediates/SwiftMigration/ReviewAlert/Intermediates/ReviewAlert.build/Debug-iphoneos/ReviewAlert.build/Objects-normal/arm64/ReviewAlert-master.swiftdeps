@@ -1,0 +1,8 @@
+version: "Apple Swift version 3.0.2 (swiftlang-800.0.63 clang-800.0.42.1)"
+options: "79fd2830c82b980b9dff68894839b99c"
+build_time: [535851436, 115978000]
+inputs:
+  "/Users/KentarOu/Desktop/\u30C6\u3099\u30B9\u30AF\u30C8\u30C3\u30D5\u309A/DeskTop/My_Github/ReviewAlert/ReviewAlert/ViewController1.swift": [535851365, 0]
+  "/Users/KentarOu/Desktop/\u30C6\u3099\u30B9\u30AF\u30C8\u30C3\u30D5\u309A/DeskTop/My_Github/ReviewAlert/ReviewAlert/ViewController.swift": [535851365, 0]
+  "/Users/KentarOu/Desktop/\u30C6\u3099\u30B9\u30AF\u30C8\u30C3\u30D5\u309A/DeskTop/My_Github/ReviewAlert/ReviewAlert/ReviewAlert.swift": [535851365, 0]
+  "/Users/KentarOu/Desktop/\u30C6\u3099\u30B9\u30AF\u30C8\u30C3\u30D5\u309A/DeskTop/My_Github/ReviewAlert/ReviewAlert/AppDelegate.swift": [535851365, 0]
